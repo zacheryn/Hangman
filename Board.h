@@ -3,6 +3,7 @@
 #ifndef BOARD_H
 #define BOARD_H
 
+#include "Audio.h"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -25,23 +26,30 @@ private:
 	std::string solution;
 	std::string answer;
 	std::vector<bool> usedLetters;
-	size_t fails;
+	unsigned int fails;
+	unsigned int successes;
 	Difficulty choice;
 
 	// Asks user to give difficulty
 	Difficulty choose_diff();
 
 	// Pulls a random word for the given file name
-	void grab_solution(std::string);
+	void grab_solution(const std::string);
 
 	// Adds the next body piece on fail
 	void add_fail();
+
+	// Checks the correctness of the given letter
+	void check_letter(const char);
+
+	// Prints board, alphabet, and the current answer
+	void print_setup();
 
 public:
 
 	// Default contructor
 	// Asks use for difficulty choice, then loads a random word from the respective text files
-	Board() : fails{ 0 },
+	Board() : fails{ 0 }, successes{ 0 },
 	board{ "     +-----+\n     |     |\n     |      \n     |       \n     |       \n     |\n=======================\n\n" },
 	answer{ "" } {
 		usedLetters.resize(26, false);
@@ -67,7 +75,15 @@ public:
 			grab_solution("extreme.txt");
 			break;
 		}
+
+		for (size_t i = 0; i < solution.length(); ++i) {
+			answer.push_back('-');
+		}
 	}
+
+
+	// The driving function to run the game
+	void play();
 
 };
 

@@ -1,7 +1,6 @@
 #include "ansi_escapes.h"
-#include "Audio.h"
 #include "Board.h"
-#include <iostream>
+#include <conio.h>
 
 
 int main() {
@@ -9,6 +8,10 @@ int main() {
     setupConsole();
 
     Board board;
+    board.play();
+
+    std::cout << "Press any key to continue..." << std::flush;
+    _getch();
 
     // Resets console to its default state if changes were made for ANSI Escape codes
     restoreConsole();

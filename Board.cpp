@@ -29,7 +29,7 @@ Board::Difficulty Board::choose_diff() {
 }
 
 
-void Board::grab_solution(std::string fname) {
+void Board::grab_solution(const std::string fname) {
 	std::ifstream fin(fname);
 
 	// Check to make sure the given file was opened
@@ -85,4 +85,79 @@ void Board::add_fail() {
 	}
 
 	++fails;
+}
+
+
+void Board::print_setup() {
+	std::cout << board;
+	for (const auto& s : alphabet) {
+		std::cout << s << ' ';
+	}
+	std::cout << "\n\nWord:\n" << answer << "\n\n";
+}
+
+
+void Board::check_letter(const char letter) {
+	bool correct = false;
+	for (size_t i = 0; i < solution.length(); ++i) {
+		if (solution[i] == letter) {
+			answer[i] = letter;
+			++successes;
+			correct = true;
+		}
+	}
+
+	usedLetters[letter - 'a'] = true;
+	std::string temp("");
+	if (correct) {
+		temp += "\x1b[4;32m";
+	}
+	else {
+		temp += "\x1b[4;31m";
+		add_fail();
+	}
+	temp += letter;
+	temp += "\x1b[0m";
+
+	alphabet[letter - 'a'] = temp;
+}
+
+
+void Board::play() {
+	std::string input("");
+
+	while (true) {
+		print_setup();
+		std::cout << "Please enter a letter: " << std::flush;
+
+		std::cin >> input;
+		if (input.length() > 1) {
+			std::cout << "\x1b[1mPlease only enter a single letter.\x1b[0m\n" << std::endl;
+			continue;
+		}
+		else if ((input[0] - 'a') < 0 || (input[0] - 'a') > 25) {
+			std::cout << "\x1b[1mPlease only use lowercase letters (a-z).\x1b[0m\n" << std::endl;
+			continue;
+		}
+		else if (usedLetters[input[0] - 'a']) {
+			std::cout << "\x1b[1mYou have already entered that letter. Try again.\x1b[0m\n" << std::endl;
+			continue;
+		}
+
+		check_letter(input[0]);
+
+		if (fails >= 6) {
+			print_setup();
+
+			std::cout << "The correct answer was '" << solution << "'\n";
+			std::cout << "Better luck next time!\n" << std::endl;
+			break;
+		}
+		if (successes >= solution.length()) {
+			print_setup();
+
+			std::cout << "Congratulations, you won!\n" << std::endl;
+			break;
+		}
+	}
 }
