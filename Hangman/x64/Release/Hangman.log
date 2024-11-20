@@ -1,7 +1,8 @@
-﻿  Hangman.cpp
+﻿  Board.cpp
+  Hangman.cpp
   Generating code
-  1 of 312 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  6 of 652 functions ( 0.9%) were compiled, the rest were copied from previous compilation.
+    2 functions were new in current compilation
+    40 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Hangman.vcxproj -> D:\C++\Personal\Hangman\x64\Release\Hangman.exe

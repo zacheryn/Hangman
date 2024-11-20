@@ -1,6 +1,10 @@
 #pragma once
 
+#ifndef BOARD_H
+#define BOARD_H
+
 #include <fstream>
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -17,12 +21,21 @@ private:
 	};
 
 	std::string board;
-	std::string alphabet;
+	std::vector<std::string> alphabet;
 	std::string solution;
 	std::string answer;
 	std::vector<bool> usedLetters;
 	size_t fails;
 	Difficulty choice;
+
+	// Asks user to give difficulty
+	Difficulty choose_diff();
+
+	// Pulls a random word for the given file name
+	void grab_solution(std::string);
+
+	// Adds the next body piece on fail
+	void add_fail();
 
 public:
 
@@ -30,9 +43,32 @@ public:
 	// Asks use for difficulty choice, then loads a random word from the respective text files
 	Board() : fails{ 0 },
 	board{ "     +-----+\n     |     |\n     |      \n     |       \n     |       \n     |\n=======================\n\n" },
-	alphabet{ "\x1b[4ma\x1b[0m \x1b[4mb\x1b[0m \x1b[4mc\x1b[0m \x1b[4md\x1b[0m \x1b[4me\x1b[0m \x1b[4mf\x1b[0m \x1b[4mg\x1b[0m \x1b[4mh\x1b[0m \x1b[4mi\x1b[0m \x1b[4mj\x1b[0m \x1b[4mk\x1b[0m \x1b[4ml\x1b[0m \x1b[4mm\x1b[0m \x1b[4mn\x1b[0m \x1b[4mo\x1b[0m \x1b[4mp\x1b[0m \x1b[4mq\x1b[0m \x1b[4mr\x1b[0m \x1b[4ms\x1b[0m \x1b[4mt\x1b[0m \x1b[4mu\x1b[0m \x1b[4mv\x1b[0m \x1b[4mw\x1b[0m \x1b[4mx\x1b[0m \x1b[4my\x1b[0m \x1b[4mz\x1b[0m\n\n" } {
+	answer{ "" } {
 		usedLetters.resize(26, false);
+		for (int i = 0; i < 26; ++i) {
+			std::string temp("\x1b[4m");
+			temp += ('a' + i);
+			temp += "\x1b[0m";
+			alphabet.push_back(temp);
+		}
+
+		choice = choose_diff();
+		switch (choice) {
+		case Difficulty::Easy:
+			grab_solution("easy.txt");
+			break;
+		case Difficulty::Medium:
+			grab_solution("medium.txt");
+			break;
+		case Difficulty::Hard:
+			grab_solution("hard.txt");
+			break;
+		case Difficulty::Extreme:
+			grab_solution("extreme.txt");
+			break;
+		}
 	}
 
 };
 
+#endif

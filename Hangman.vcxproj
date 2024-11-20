@@ -138,6 +138,12 @@
     <ClInclude Include="ansi_escapes.h" />
     <ClInclude Include="Board.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="easy.txt" />
+    <Text Include="medium.txt" />
+    <Text Include="hard.txt" />
+    <Text Include="extreme.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
