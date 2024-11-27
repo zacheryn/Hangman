@@ -85,6 +85,9 @@ void Board::add_fail() {
 	}
 
 	++fails;
+
+	if (sounds != nullptr)
+		sounds->Play("wrong.wav", 0.10f, false);
 }
 
 
@@ -111,6 +114,8 @@ void Board::check_letter(const char letter) {
 	std::string temp("");
 	if (correct) {
 		temp += "\x1b[4;32m";
+		if (sounds != nullptr)
+			sounds->Play("correct.wav", 1, false);
 	}
 	else {
 		temp += "\x1b[4;31m";
@@ -160,4 +165,8 @@ void Board::play() {
 			break;
 		}
 	}
+}
+
+void Board::startSoundEngine(const std::string path) {
+	sounds = new Audio(path);
 }

@@ -21,6 +21,7 @@ private:
 		Extreme
 	};
 
+	Audio* sounds;
 	std::string board;
 	std::vector<std::string> alphabet;
 	std::string solution;
@@ -51,7 +52,7 @@ public:
 	// Asks use for difficulty choice, then loads a random word from the respective text files
 	Board() : fails{ 0 }, successes{ 0 },
 	board{ "     +-----+\n     |     |\n     |      \n     |       \n     |       \n     |\n=======================\n\n" },
-	answer{ "" } {
+	answer{ "" }, sounds{ nullptr } {
 		usedLetters.resize(26, false);
 		for (int i = 0; i < 26; ++i) {
 			std::string temp("\x1b[4m");
@@ -84,6 +85,15 @@ public:
 
 	// The driving function to run the game
 	void play();
+
+
+	// Sets up the audio engine by giving it the path to sounds
+	void startSoundEngine(const std::string);
+
+
+	~Board() {
+		delete sounds;
+	}
 
 };
 
