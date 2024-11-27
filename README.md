@@ -19,4 +19,4 @@ The directory that the executable is in should look something like this:
 └── <Any other files you want>
 ```
 
-All of this will be prepared as required in the zip file which can be found in the latest [release](https://github.com/zacheryn/Hangman/releases/latest/).  Alternatively, you can directly download the [archive](https://github.com/zacheryn/Hangman/releases/latest/Hangman.zip).
+All of this will be prepared as required in the zip file which can be found in the latest [release](https://github.com/zacheryn/Hangman/releases/latest/).  Alternatively, you can directly download the [archive](https://github.com/zacheryn/Hangman/releases/latest/download/Hangman.zip).
